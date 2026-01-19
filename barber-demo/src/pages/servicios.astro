@@ -1,0 +1,21 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Section from "@components/Section.astro";
+import ServiceCard from "@components/ServiceCard.astro";
+import barber from "@data/barber.json";
+
+const title = `Servicios y precios — ${barber.nombre}`;
+const description = "Servicios con duración y precio. Reservá directo por WhatsApp.";
+---
+<BaseLayout title={title} description={description}>
+  <Section
+    title="Servicios"
+    subtitle="Cards claras con duración, precio y CTA directo."
+  >
+    <div class="grid md:grid-cols-2 gap-4">
+      {barber.servicios.map((s) => (
+        <ServiceCard service={s} brand={barber.nombre} whatsapp={barber.whatsapp} />
+      ))}
+    </div>
+  </Section>
+</BaseLayout>

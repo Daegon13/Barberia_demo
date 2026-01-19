@@ -1,0 +1,11 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import TurnosFlow from "@components/TurnosFlow.astro";
+import barber from "@data/barber.json";
+
+const title = `Turnos — ${barber.nombre}`;
+const description = "Flujo mock: elegir servicio → elegir día/hora → WhatsApp con mensaje armado.";
+---
+<BaseLayout title={title} description={description}>
+  <TurnosFlow />
+</BaseLayout>

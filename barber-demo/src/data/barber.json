@@ -1,0 +1,86 @@
+{
+  "nombre": "NOIR Barber Studio",
+  "ciudad": "Montevideo",
+  "direccion": "Av. Ejemplo 1234, Centro",
+  "whatsapp": "59899123456",
+  "horarios": {
+    "dias": ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+    "abre": "10:00",
+    "cierra": "19:30",
+    "nota": "Turnos puntuales. Llegá 5 min antes."
+  },
+  "servicios": [
+    {
+      "nombre": "Corte",
+      "precio": 650,
+      "duracion": 40,
+      "descripcion": "Corte moderno, limpieza de contornos y finalización prolija.",
+      "popular": true
+    },
+    {
+      "nombre": "Barba",
+      "precio": 550,
+      "duracion": 35,
+      "descripcion": "Perfilado + rebaje + toalla caliente (mock).",
+      "popular": true
+    },
+    {
+      "nombre": "Corte + Barba",
+      "precio": 1100,
+      "duracion": 75,
+      "descripcion": "Combo completo, pensado para salir listo.",
+      "popular": true
+    },
+    {
+      "nombre": "Perfilado",
+      "precio": 450,
+      "duracion": 20,
+      "descripcion": "Contornos y definición rápida (ideal mantenimiento).",
+      "popular": false
+    },
+    {
+      "nombre": "Afeitado",
+      "precio": 700,
+      "duracion": 45,
+      "descripcion": "Afeitado clásico y calmado (mock).",
+      "popular": false
+    }
+  ],
+  "barberos": [
+    {
+      "nombre": "Axel",
+      "especialidad": "Fade + textura",
+      "foto": "/img/avatar.svg"
+    },
+    {
+      "nombre": "Bruno",
+      "especialidad": "Barba + perfiles limpios",
+      "foto": "/img/avatar.svg"
+    }
+  ],
+  "testimonios": [
+    {
+      "nombre": "Matías R.",
+      "texto": "Entré, elegí servicio y reservé por WhatsApp en 10 segundos. Puntuales y prolijos.",
+      "rating": 5
+    },
+    {
+      "nombre": "Nico P.",
+      "texto": "Estética impecable, buen trato, y el corte quedó tal cual lo pedí.",
+      "rating": 5
+    },
+    {
+      "nombre": "Lucas S.",
+      "texto": "Sin vueltas: precios claros, disponibilidad rápida y laburo fino en barba.",
+      "rating": 5
+    }
+  ],
+  "galeria": [
+    { "before": "/img/gallery-before.svg", "after": "/img/gallery-after.svg", "titulo": "Fade bajo + textura" },
+    { "before": "/img/gallery-before.svg", "after": "/img/gallery-after.svg", "titulo": "Barba definida" },
+    { "before": "/img/gallery-before.svg", "after": "/img/gallery-after.svg", "titulo": "Corte clásico moderno" },
+    { "before": "/img/gallery-before.svg", "after": "/img/gallery-after.svg", "titulo": "Perfilado limpio" },
+    { "before": "/img/gallery-before.svg", "after": "/img/gallery-after.svg", "titulo": "Combo completo" },
+    { "before": "/img/gallery-before.svg", "after": "/img/gallery-after.svg", "titulo": "Fade medio" }
+  ]
+}
