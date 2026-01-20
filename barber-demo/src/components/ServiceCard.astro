@@ -5,39 +5,88 @@ const { service, brand, whatsapp } = Astro.props;
 const msg = `Hola, quiero un turno para ${service.nombre} en ${brand}. ¿Tienen disponibilidad hoy?`;
 const href = buildWhatsAppLink(whatsapp, msg);
 ---
-<div class="rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/7 transition shadow-soft">
-  <div class="flex items-start justify-between gap-3">
-    <div>
-      <div class="flex items-center gap-2">
-        <h3 class="font-semibold text-zinc-50">{service.nombre}</h3>
-        {service.popular && (
-          <span class="text-[11px] rounded-full bg-cyanA-500/15 border border-cyanA-500/25 px-2 py-0.5 text-cyanA-500">
-            Popular
-          </span>
-        )}
-      </div>
-      <p class="mt-2 text-sm text-zinc-400">{service.descripcion}</p>
-    </div>
-    <div class="text-right">
-      <div class="text-sm text-zinc-400">{service.duracion} min</div>
-      <div class="text-lg font-semibold text-zinc-50">{formatUYU(service.precio)}</div>
-    </div>
-  </div>
+type Servicio = {
+  id?: string;
+  nombre: string;
+  precio: number;
+  duracion: number;
+  descripcion: string;
+  popular?: boolean;
+  imagen?: string;
+  alt?: string;
+};
 
-  <div class="mt-4 flex gap-2">
-    <a
-      href={`/turnos?servicio=${encodeURIComponent(service.nombre)}`}
-      class="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-center text-sm font-semibold text-zinc-100 hover:bg-white/10 transition"
-    >
-      Elegir horario
-    </a>
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      class="flex-1 rounded-xl bg-cyanA-500/15 border border-cyanA-500/25 px-4 py-2 text-center text-sm font-semibold text-cyanA-500 hover:bg-cyanA-500/20 transition"
-    >
-      Reservar
-    </a>
+type Props = {
+  service: Servicio;
+  brand: string;
+  whatsapp: string; // ej "59899123456"
+};
+
+const { service, brand, whatsapp } = Astro.props as Props;
+
+const formatUYU = (n: number) =>
+  n.toLocaleString("es-UY", { style: "currency", currency: "UYU", maximumFractionDigits: 0 });
+
+const waTextBase = (svc: string) =>
+  `Hola, quiero un turno para ${svc} en ${brand}. ¿Tienen disponibilidad?`;
+
+const waLink = `https://wa.me/${whatsapp}?text=${encodeURIComponent(waTextBase(service.nombre))}`;
+const idSafe = service.id ?? service.nombre.toLowerCase().replace(/\s+/g, "-");
+---
+
+<article class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden shadow-soft">
+  {service.imagen ? (
+    <img
+      src={service.imagen}
+      alt={service.alt ?? service.nombre}
+      class="h-44 w-full object-cover"
+      loading="lazy"
+      decoding="async"
+    />
+  ) : (
+    <div class="h-44 w-full bg-gradient-to-b from-white/5 to-black/20"></div>
+  )}
+
+  <div class="p-5">
+    <div class="flex items-start justify-between gap-4">
+      <div class="min-w-0">
+        <div class="flex items-center gap-2">
+          <h3 class="truncate text-base font-semibold text-zinc-50">{service.nombre}</h3>
+
+          {service.popular ? (
+            <span class="rounded-full border border-cyan-300/25 bg-cyan-400/10 px-2 py-0.5 text-[11px] font-semibold text-cyan-200">
+              Popular
+            </span>
+          ) : null}
+        </div>
+
+        <p class="mt-2 text-sm text-zinc-400 leading-relaxed">{service.descripcion}</p>
+      </div>
+
+      <div class="shrink-0 text-right">
+        <div class="text-xs text-zinc-400">{service.duracion} min</div>
+        <div class="mt-1 text-lg font-semibold text-zinc-50">{formatUYU(service.precio)}</div>
+      </div>
+    </div>
+
+    <div class="mt-4 grid grid-cols-2 gap-2">
+      <button
+        type="button"
+        class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-zinc-100 hover:bg-white/10 transition"
+        data-open-schedule="true"
+        data-service-id={idSafe}
+      >
+        Elegir horario
+      </button>
+
+      <a
+        class="rounded-xl bg-cyan-400/15 border border-cyan-300/25 px-4 py-3 text-center text-sm font-semibold text-cyan-100 hover:bg-cyan-400/20 transition"
+        href={waLink}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Reservar
+      </a>
+    </div>
   </div>
-</div>
+</article>

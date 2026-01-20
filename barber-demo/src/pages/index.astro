@@ -1,27 +1,47 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import Hero from "@components/Hero.astro";
 import Section from "@components/Section.astro";
+import type { BarberData, Servicio } from "../lib/types";
+import BarbersSection from "../components/BarbersSection.astro";
 import ServiceCard from "@components/ServiceCard.astro";
 import PriceCards from "@components/PriceCards.astro";
 import Testimonials from "@components/Testimonials.astro";
 import barber from "@data/barber.json";
 import { buildWhatsAppLink } from "@lib/whatsapp";
 
-const title = `${barber.nombre} — Turnos por WhatsApp`;
-const description = `Reservá tu turno en segundos. Servicios claros, precios visibles y WhatsApp directo. ${barber.ciudad}.`;
-
 const ctaPrimary = buildWhatsAppLink(
   barber.whatsapp,
   `Hola, quiero reservar un turno en ${barber.nombre}. ¿Qué disponibilidad tienen hoy?`
 );
+const data = barber as unknown as BarberData;
+
+// “Servicios top” (tomamos los populares o los primeros 4)
+const top: Servicio[] = (data.servicios ?? []).filter(s => s.popular).slice(0, 4);
+const title = `${data.nombre} — Turnos por WhatsApp`;
+const description = `Reservá en segundos. Servicios claros y WhatsApp directo. ${data.ciudad}.`;
 ---
 <BaseLayout title={title} description={description}>
-  <!-- HERO -->
+  <Hero />
+
+  <section class="mt-10">
+    <h2 class="text-xl font-semibold text-zinc-50">Servicios top</h2>
+    <p class="mt-2 text-sm text-zinc-400">Elegí uno y reservá rápido.</p>
+
+    <div class="mt-6 grid gap-4 lg:grid-cols-2">
+      {top.map((s) => (
+        <ServiceCard s={s} />
+      ))}
+    </div>
+  </section>
+
+  <BarbersSection />
+  
   <section class="grid lg:grid-cols-2 gap-10 items-start">
     <div>
       <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-300">
         <span class="h-1.5 w-1.5 rounded-full bg-cyanA-500/70"></span>
-        Turnos sin vueltas · Respuesta rápida
+        Turnos en el momento · Respuesta rápida
       </div>
 
       <h1 class="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-50">
