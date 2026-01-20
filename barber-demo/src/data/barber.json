@@ -101,6 +101,12 @@
       "alt": "Plano de torso y manos con herramientas, estilo editorial anónimo."
     }
   ],
+  
+  "branding": {
+    "logoMark": "/images/brand/noir-mark.png",
+    "logoWordmark": "/images/brand/noir-wordmark.png"
+  },
+
 "testimonios": [
     { "nombre": "Martín", "texto": "Quedó impecable y sin esperar.", "rating": 5 },
     { "nombre": "Gonzalo", "texto": "Prolijos con los detalles y puntuales.", "rating": 5 },
