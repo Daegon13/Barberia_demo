@@ -1,10 +1,4 @@
 ---
-import barber from "../data/barber.json";
-import type { BarberData, Barbero } from "../lib/types";
-
-const data = barber as unknown as BarberData;
-const barberos = (data.barberos ?? []) as Barbero[];
----
 type Barbero = {
   nombre: string;
   especialidad: string;
@@ -23,12 +17,14 @@ const { barberos } = Astro.props as Props;
   <div class="flex items-end justify-between gap-6">
     <div>
       <h2 class="text-xl font-semibold text-zinc-50">Barberos</h2>
-      <p class="mt-2 text-sm text-zinc-400">Equipo con mano firme y detalle fino.</p>
+      <p class="mt-2 text-sm text-zinc-400">
+        Equipo con mano firme y detalle fino.
+      </p>
     </div>
   </div>
 
   <div class="mt-6 grid gap-4 md:grid-cols-2">
-    {barberos.map((b: Barbero) => (
+    {barberos.map((b) => (
       <article class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden shadow-soft">
         {b.foto ? (
           <img

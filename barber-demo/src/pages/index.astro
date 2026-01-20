@@ -16,6 +16,12 @@ const ctaPrimary = buildWhatsAppLink(
 );
 const data = barber as unknown as BarberData;
 
+// destacados: populares primero (hasta 4), si no hay populares toma los primeros 4
+const featured =
+  (barber.servicios?.filter((s) => s.popular) ?? []).slice(0, 4).length > 0
+    ? (barber.servicios.filter((s) => s.popular)).slice(0, 4)
+    : (barber.servicios ?? []).slice(0, 4);
+
 // “Servicios top” (tomamos los populares o los primeros 4)
 const top: Servicio[] = (data.servicios ?? []).filter(s => s.popular).slice(0, 4);
 const title = `${data.nombre} — Turnos por WhatsApp`;
@@ -34,6 +40,33 @@ const description = `Reservá en segundos. Servicios claros y WhatsApp directo. 
       ))}
     </div>
   </section>
+
+    <Section
+    title="Servicios destacados"
+    subtitle="Elegí uno y reservá rápido. Precio claro + WhatsApp directo."
+  >
+    <div class="grid md:grid-cols-2 gap-4">
+      {featured.map((s) => (
+        <ServiceCard service={s} brand={barber.nombre} whatsapp={barber.whatsapp} />
+      ))}
+    </div>
+
+    <div class="mt-6 flex flex-col sm:flex-row gap-2">
+      <a
+        href="/servicios"
+        class="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-center text-sm font-semibold text-zinc-100 hover:bg-white/10 transition"
+      >
+        Ver todos los servicios
+      </a>
+
+      <a
+        href="/turnos"
+        class="rounded-2xl bg-cyan-400/15 border border-cyan-300/25 px-5 py-3 text-center text-sm font-semibold text-cyan-100 hover:bg-cyan-400/20 transition"
+      >
+        Reservar ahora
+      </a>
+    </div>
+  </Section>
 
   <BarbersSection />
   
