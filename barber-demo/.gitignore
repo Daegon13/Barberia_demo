@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 .vercel
 .env*.local
+
+# Permitir link de Vercel para CI (solo el project.json)
+!.vercel/project.json
