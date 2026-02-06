@@ -5,7 +5,6 @@ import Section from "@components/Section.astro";
 import type { BarberData, Servicio } from "../lib/types";
 import BarbersSection from "../components/BarbersSection.astro";
 import ServiceCard from "@components/ServiceCard.astro";
-import PriceCards from "@components/PriceCards.astro";
 import Testimonials from "@components/Testimonials.astro";
 import barber from "@data/barber.json";
 import { buildWhatsAppLink } from "@lib/whatsapp";
@@ -52,7 +51,7 @@ const description = `Reservá en segundos. Servicios claros y WhatsApp directo. 
 
   <Section
     title="Servicios destacados"
-    subtitle="Elegí uno y reservá rápido. Precio claro + WhatsApp directo."
+    subtitle="Lo que ves es lo que pagas con estimacion de duracion incluida."
   >
     <div class="grid md:grid-cols-2 gap-4">
       {featured.map((s) => (
@@ -60,15 +59,10 @@ const description = `Reservá en segundos. Servicios claros y WhatsApp directo. 
       ))}
     </div>
   </Section>
+  
 
-   <BarbersSection barberos={barber.barberos ?? []} />
-
-  <Section
-    title="Precios claros"
-    subtitle="Lo que ves es lo que pagás. Duración estimada incluida."
-  >
-    <PriceCards servicios={barber.servicios} />
-  </Section>
+  <BarbersSection barberos={barber.barberos} />
+  
 
   <Section
     title="Confianza"
@@ -110,5 +104,21 @@ const description = `Reservá en segundos. Servicios claros y WhatsApp directo. 
         </a>
       </div>
     </div>
+  </section>
+
+  <section class="py-10">
+    <h1 class="text-2xl font-semibold text-zinc-50">Ubicación</h1>
+
+    <div class="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-soft">
+      <img
+        src={barber.media.location}
+        alt="Fachada del local"
+        class="h-[260px] w-full object-cover md:h-[360px]"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+    <!-- tu contenido existente: horarios + mapa placeholder + cómo llegar -->
   </section>
 </BaseLayout>
